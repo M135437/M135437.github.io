@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+                <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+       <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet"> -->
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+
+        <script>
+            function checkChoice() {
+                let button = event.target;
+                let feedbackP0 = document.getElementsByClassName('feedback1')[0];
+                if (button.innerHTML === "1 person per 6 sheep"){
+                    // clear past of incorrect/correct red/green buttons
+                    let allButtons = document.querySelectorAll("button")
+                    allButtons.forEach(button => button.style.backgroundColor = "")
+                    // minimum program requirements
+                    feedbackP0.innerHTML = "Correct!";
+                    feedbackP0.style.backgroundColor = "Green";
+                    button.style.backgroundColor = 'Green';
+                } else {
+                    // clear past of incorrect/correct red/green buttons
+                    let allButtons = document.querySelectorAll("button")
+                    allButtons.forEach(button => button.style.backgroundColor = "")
+                    // fill program requirements
+                    button.style.backgroundColor = 'Red'
+                    feedbackP0.innerHTML = "Incorrect";
+                    feedbackP0.style.backgroundColor = "Red";
+                }
+            }
+
+            function checkFreeResponse(event, form) {
+                event.preventDefault(); // avoid reloading page
+                let button = event.currentTarget;
+ //               let input = button.parentElement.querySelector("input");
+ //               let input = document.getElementById("freeInput");
+                let input = form.querySelector("input")
+                input.classList.remove("feedbackCorrect", "feedbackInCorrect");
+                let feedbackP2 = document.getElementsByClassName('feedback2')[0];
+                if (input.value === "Switzerland") {
+                    input.classList.add("feedbackCorrect");
+                    feedbackP2.innerHTML = "Correct!";
+//   document.getElementsByClassName("feedback2").innerText = "Correct!";
+//                    feedbackP2.style.backgroundColor = "Green";
+                } else {
+                    input.classList.add("feedbackInCorrect");
+                    feedbackP2.innerHTML = "Incorrect";
+//  document.getElementsByClassName("feedback2").innerText = "Incorrect!";
+//                    feedbackP2.style.backgroundColor = "Red";
+                };
+            };
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1 class="p-4 hover:text-amber-300">Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <h3 p-4 hover:text-amber-300>What is the approximate ratio of people to sheep in New Zealand?</h3>
+                <hr>
+                <button type="button" id="6to1" onclick="checkChoice()">6 people per 1 sheep</button>
+                <button type="button" id="3to1" onclick="checkChoice()">3 people per 1 sheep</button>
+                <button type="button" id="1to1" onclick="checkChoice()">1 person per 1 sheep</button>
+                <button type="button" id="1to3" onclick="checkChoice()">1 person per 3 sheep</button>
+                <button type="button" id="1to6" onclick="checkChoice()">1 person per 6 sheep</button>
+                <p class="feedback1"></p>
+            </div>
+
+                <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <h3>In which country is it illegal to own only one guine pig, as a lone guinea pig might get lonely?</h3>
+                <hr>
+                <form onsubmit="checkFreeResponse(event, this)"> <!-- action="" would send to reload current page (or alternative if "" filled with a target)  -->
+                <!-- <input id="freeInput" type="text"> -->
+                <input type="text">
+                <button type="submit" id="checkFreeResponseButton">Check Answer</button>
+                </form>
+                <p class="feedback2"></p>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>
